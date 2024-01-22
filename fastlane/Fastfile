@@ -10,9 +10,9 @@ platform :ios do
         ensure_git_status_clean
     end
 
-    desc "Run unit tests"
+    desc "Run Jest unit tests"
     lane :test do
-        run_tests(scheme: ENV["SCHEME"], workspace: "ios/HarnessReact.xcworkspace") # Replace with your scheme name
+        sh "npm test"
     end
 
     desc "Build the iOS app"
