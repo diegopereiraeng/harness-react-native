@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios test
 ```
 
-Run unit tests
+Run Jest unit tests
 
 ### ios build
 
