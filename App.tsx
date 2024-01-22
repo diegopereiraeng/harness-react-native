@@ -1,118 +1,81 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// File: App.tsx
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions } from 'react-native';
+import Header from './components/Header'; // Import the custom Header component
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const { width } = Dimensions.get('window');
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Step: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.stepContainer}>
+      <Text style={styles.stepTitle}>{title}</Text>
+      <Text style={styles.stepContent}>{content}</Text>
     </View>
   );
-}
+};
 
-function App(): React.JSX.Element {
+const App: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? '#0E1D34' : '#FFFFFF', // Example of dark and light theme
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+    <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <Header />
       <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
+        style={backgroundStyle}
+      >
+        {/* Each Step component is a page in the horizontal scroll view */}
+        <Step
+          title="Step One"
+          content="Install Harness and configure your project for CI/CD pipelines."
+        />
+        <Step
+          title="Step Two"
+          content="Define your build and test workflows within the Harness platform."
+        />
+        <Step
+          title="Step Three"
+          content="Set up your deployment strategy and distribution methods for iOS."
+        />
+        <Step
+          title="Step Four"
+          content="Monitor your app's performance and user feedback after deployment."
+        />
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  safeAreaView: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  stepContainer: {
+    width: width, // Each step will be the full width of the screen
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
+  stepTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#0292E3', // Harness brand color for titles
+    marginBottom: 15,
+  },
+  stepContent: {
     fontSize: 18,
-    fontWeight: '400',
+    color: '#5C5C5C', // Subdued text color for content
   },
-  highlight: {
-    fontWeight: '700',
-  },
+  // ... Add more styles as needed
 });
 
 export default App;
