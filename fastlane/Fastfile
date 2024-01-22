@@ -12,7 +12,7 @@ platform :ios do
 
     desc "Run unit tests"
     lane :test do
-        run_tests(scheme: ENV["SCHEME"]) # Replace with your scheme name
+        run_tests(scheme: ENV["SCHEME"], workspace: "ios/HarnessReact.xcworkspace") # Replace with your scheme name
     end
 
     desc "Build the iOS app"
