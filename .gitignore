@@ -73,3 +73,8 @@ yarn-error.log
 
 # MACOS
 .DS_Store
+
+clone.sh
+
+*/*.xcodeproj/project.pbxproj
+*/Podfile.lock
