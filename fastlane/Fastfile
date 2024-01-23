@@ -8,6 +8,11 @@ platform :ios do
     before_all do
         install_pods
         ensure_git_status_clean
+        install_npm_dependencies
+    end
+
+    lane :install_npm_dependencies do
+        sh "npm install"
     end
 
     desc "Run Jest unit tests"
