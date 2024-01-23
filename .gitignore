@@ -64,3 +64,12 @@ yarn-error.log
 
 # testing
 /coverage
+
+.env
+
+# ruby
+.ruby-version
+.rbenv-vars
+
+# MACOS
+.DS_Store
