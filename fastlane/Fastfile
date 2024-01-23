@@ -11,10 +11,6 @@ platform :ios do
         install_npm_dependencies
     end
 
-    lane :install_npm_dependencies do
-        sh "npm install"
-    end
-
     desc "Run Jest unit tests"
     lane :test do
         sh "npm test"
