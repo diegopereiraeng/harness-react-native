@@ -73,10 +73,11 @@ platform :ios do
         puts "Changed to Directory: #{Dir.pwd}"
         fastlane_dir = %x(pwd)
         absolute_path = Pathname.new(File.expand_path(fastlane_dir)).parent
+        puts "Fastlane Dir: #{absolute_path}"
         puts "Absolute Path: #{absolute_path}"
         cocoapods(
             repo_update: true,
-            podfile: "../ios/Podfile"
+            podfile: "/private/tmp/harness/ios/Podfile"
         )
     end
 
