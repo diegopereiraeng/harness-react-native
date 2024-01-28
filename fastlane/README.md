@@ -45,7 +45,23 @@ Run Jest unit tests
 [bundle exec] fastlane ios build
 ```
 
+Build the iOS application.
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
+```
+
 Build the iOS app
+
+### ios debug_lane
+
+```sh
+[bundle exec] fastlane ios debug_lane
+```
+
+
 
 ### ios release
 

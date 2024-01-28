@@ -7,7 +7,7 @@ platform :ios do
     # Before running a lane, make sure to install the app dependencies
     before_all do
         # install_pods
-        ensure_git_status_clean
+        # ensure_git_status_clean
     end
 
     lane :create_keys do
@@ -28,17 +28,44 @@ platform :ios do
         sh "npm test"
     end
 
-    desc "Build the iOS app"
+    desc 'Build the iOS application.'
     lane :build do
         download_keys
+        increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
+        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        gym(
+            scheme: 'HarnessReact', 
+            project: './ios/HarnessReact.xcodeproj',
+            clean: true,
+            export_method: 'app-store',
+            export_team_id: 'ZLX9RDU5FZ'
+        )
+    end
+
+
+
+    desc "Build the iOS app"
+    lane :beta do
         # Sync code signing credentials using match
         # match(type: "appstore") # Use 'development' or 'adhoc' as needed
         # increment_build_number
         # git_commit(path: "../ios/#{ENV["SCHEME"]}/Info.plist", message: "Increment build number to #{get_build_number}")
-        build_app(
-            workspace: ENV["WORKSPACE"],
-            scheme: ENV["SCHEME"]
-        )
+        debug_lane
+        build
+        pilot
+        commit_version_bump(message: 'Bump build', xcodeproj: './ios/HarnessReact.xcodeproj')
+        push_to_git_remote
+        
+        # gym(scheme: ENV["SCHEME"], project: './ios/HarnessReact.xcodeproj')
+        # build_app(
+        #     workspace: ENV["WORKSPACE"],
+        #     scheme: ENV["SCHEME"]
+        # )
+    end
+
+    lane :debug_lane do
+        puts "Current Directory: #{Dir.pwd}"
+        sh "ls -la"
     end
 
 
