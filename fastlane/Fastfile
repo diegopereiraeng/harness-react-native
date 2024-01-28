@@ -34,7 +34,7 @@ platform :ios do
         # Sync code signing credentials using match
         # match(type: "appstore") # Use 'development' or 'adhoc' as needed
         # increment_build_number
-        git_commit(path: "../ios/#{ENV["SCHEME"]}/Info.plist", message: "Increment build number to #{get_build_number}")
+        # git_commit(path: "../ios/#{ENV["SCHEME"]}/Info.plist", message: "Increment build number to #{get_build_number}")
         build_app(
             workspace: ENV["WORKSPACE"],
             scheme: ENV["SCHEME"]
