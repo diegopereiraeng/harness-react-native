@@ -75,6 +75,7 @@ platform :ios do
         absolute_path = Pathname.new(File.expand_path(fastlane_dir)).parent
         puts "Fastlane Dir: #{absolute_path}"
         puts "Absolute Path: #{absolute_path}"
+        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
         cocoapods(
             repo_update: true,
             podfile: "/private/tmp/harness/ios/Podfile"

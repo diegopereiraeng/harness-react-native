@@ -6,7 +6,10 @@ require Pod::Executable.execute_command('node', ['-p',
   )', __dir__]).strip
 
 platform :ios, min_ios_version_supported
-prepare_react_native_project!
+# prepare_react_native_project!
+# Prepare React Native project (if this method is defined in react_native_pods.rb)
+prepare_react_native_project! if defined?(prepare_react_native_project!)
+
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
 # because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
