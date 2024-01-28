@@ -76,7 +76,7 @@ platform :ios do
         puts "Absolute Path: #{absolute_path}"
         cocoapods(
             repo_update: true,
-            podfile: "./ios/Podfile"
+            podfile: "../ios/Podfile"
         )
     end
 
