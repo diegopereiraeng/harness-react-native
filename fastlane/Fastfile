@@ -6,8 +6,7 @@ platform :ios do
 
     # Before running a lane, make sure to install the app dependencies
     before_all do
-        download_keys
-        install_pods
+        # install_pods
         ensure_git_status_clean
     end
 
@@ -31,6 +30,7 @@ platform :ios do
 
     desc "Build the iOS app"
     lane :build do
+        download_keys
         # Sync code signing credentials using match
         # match(type: "appstore") # Use 'development' or 'adhoc' as needed
         # increment_build_number
