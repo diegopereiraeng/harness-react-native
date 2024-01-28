@@ -33,7 +33,7 @@ platform :ios do
     lane :build do
         # Sync code signing credentials using match
         # match(type: "appstore") # Use 'development' or 'adhoc' as needed
-        increment_build_number_in_plist(scheme: ENV["SCHEME"])
+        increment_build_number(scheme: ENV["SCHEME"])
         build_app(
             workspace: ENV["WORKSPACE"],
             scheme: ENV["SCHEME"]
