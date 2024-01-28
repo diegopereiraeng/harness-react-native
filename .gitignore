@@ -76,5 +76,4 @@ yarn-error.log
 .DS_Store
 
 clone.sh
-**/**/project.pbxproj
 **/Podfile.lock
