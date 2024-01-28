@@ -10,6 +10,19 @@ platform :ios do
         ensure_git_status_clean
     end
 
+    lane :create_keys do
+        match(type: "development", force_for_new_devices: true)
+        match(type: "adhoc", force_for_new_devices: true)
+        match(type: "appstore")
+    end
+
+    desc "Download keys"
+    lane :download_keys do
+        match(type: "development", readonly: true)
+        match(type: "adhoc", readonly: true)
+        match(type: "appstore", readonly: true)
+    end
+
     desc "Run Jest unit tests"
     lane :test do
         sh "npm test"
@@ -18,7 +31,8 @@ platform :ios do
     desc "Build the iOS app"
     lane :build do
         # Sync code signing credentials using match
-        match(type: "appstore") # Use 'development' or 'adhoc' as needed
+        # match(type: "appstore") # Use 'development' or 'adhoc' as needed
+        increment_build_number_in_plist(scheme: ENV["SCHEME"])
         build_app(
             workspace: ENV["WORKSPACE"],
             scheme: ENV["SCHEME"]
@@ -62,4 +76,5 @@ platform :ios do
             podfile: "./ios/Podfile"
         )
     end
+
 end
