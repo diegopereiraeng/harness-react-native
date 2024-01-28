@@ -78,7 +78,7 @@ platform :ios do
         ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
         cocoapods(
             repo_update: true,
-            podfile: "/private/tmp/harness/ios/Podfile"
+            podfile: "#{absolute_path}/ios/Podfile"
         )
     end
 
