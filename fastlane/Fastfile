@@ -61,14 +61,14 @@ platform :ios do
     # Private lane to install CocoaPods dependencies
     private_lane :install_pods do
         
-        Dir.chdir("../ios") do
-            puts "Changed to Directory: #{Dir.pwd}"
-            if File.exist?("Podfile")
-                puts "Found Podfile!"
-            else
-                puts "Podfile not found!"
-            end
-        end
+        # Dir.chdir("../ios") do
+        #     puts "Changed to Directory: #{Dir.pwd}"
+        #     if File.exist?("Podfile")
+        #         puts "Found Podfile!"
+        #     else
+        #         puts "Podfile not found!"
+        #     end
+        # end
         puts "Debug:"
         puts "Changed to Directory: #{Dir.pwd}"
         fastlane_dir = %x(pwd)
