@@ -32,10 +32,10 @@ platform :ios do
     lane :build do
         download_keys
         increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
-        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
         gym(
             scheme: 'HarnessReact', 
-            project: './ios/HarnessReact.xcodeproj',
+            workspace: ENV["WORKSPACE"],
             clean: true,
             export_method: 'app-store',
             export_team_id: 'ZLX9RDU5FZ'
