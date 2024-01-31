@@ -23,54 +23,41 @@ platform :ios do
         match(type: "appstore", readonly: true)
     end
 
-    desc "Run Jest unit tests"
-    lane :test do
-        sh "npm test"
-    end
-
     desc 'Build the iOS application.'
-    lane :build do
+    private_lanelane :build do
         download_keys
         increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
-        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
+        # ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
         gym(
             scheme: 'HarnessReact', 
             workspace: ENV["WORKSPACE"],
             clean: true,
             export_method: 'app-store',
-            export_team_id: 'ZLX9RDU5FZ'
+            export_team_id: ENV["TEAM_ID"],
+            # output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
+            output_name: "HarnessReact.ipa",       # specify the name of the .ipa file to generate (including file extension)
+            sdk: "iOS 15.1"
         )
-        # build_app(
-        #     scheme: "HarnessReact",
-        #     export_method: "app-store",
-        #     export_options: {
-        #         provisioningProfiles: {
-        #         "com.mobiledevops.HarnessReact" => "Provisioning Profile Name",
-        #         "com.example.bundleid2" => "Provisioning Profile Name 2"
-        #         }
-        #     }
-        # )
+
     end
 
 
 
     desc "Build the iOS app"
     lane :beta do
-        # Sync code signing credentials using match
-        # match(type: "appstore") # Use 'development' or 'adhoc' as needed
-        # increment_build_number
-        # git_commit(path: "../ios/#{ENV["SCHEME"]}/Info.plist", message: "Increment build number to #{get_build_number}")
-        debug_lane
         build
         pilot
         commit_version_bump(message: 'Bump build', xcodeproj: './ios/HarnessReact.xcodeproj')
         push_to_git_remote
         
-        # gym(scheme: ENV["SCHEME"], project: './ios/HarnessReact.xcodeproj')
-        # build_app(
-        #     workspace: ENV["WORKSPACE"],
-        #     scheme: ENV["SCHEME"]
-        # )
+        upload_to_testflight(
+            beta_app_feedback_email: "diego.pereira@harness.io",
+            beta_app_description: "Harness Mobile React Native IOS Demo",
+            api_key: api_key,
+            skip_waiting_for_build_processing: true,
+            apple_id: ENV["APP_STORE_CONNECT_APPLE_ID"],
+            uses_non_exempt_encryption: false
+        )
     end
 
     lane :debug_lane do
