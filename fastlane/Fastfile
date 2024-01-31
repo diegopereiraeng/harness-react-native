@@ -46,7 +46,7 @@ platform :ios do
     desc "Build the iOS app and send to Test Flight"
     lane :beta do
         build
-        pilot
+        # pilot
         commit_version_bump(message: 'Bump build', xcodeproj: './ios/HarnessReact.xcodeproj')
         push_to_git_remote
         api_key = app_store_connect_api_key(
