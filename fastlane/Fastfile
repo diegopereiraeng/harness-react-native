@@ -24,10 +24,10 @@ platform :ios do
     end
 
     desc 'Build the iOS application.'
-    private_lanelane :build do
+    private_lane :build do
         download_keys
         increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
-        # ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
+        ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
         gym(
             scheme: 'HarnessReact', 
             workspace: ENV["WORKSPACE"],
@@ -36,7 +36,7 @@ platform :ios do
             export_team_id: ENV["TEAM_ID"],
             # output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
             output_name: "HarnessReact.ipa",       # specify the name of the .ipa file to generate (including file extension)
-            # sdk: "iOS 15.1"
+            sdk: "iOS 13.4"
         )
 
     end
