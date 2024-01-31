@@ -36,7 +36,7 @@ platform :ios do
             export_team_id: ENV["TEAM_ID"],
             # output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
             output_name: "HarnessReact.ipa",       # specify the name of the .ipa file to generate (including file extension)
-            sdk: "iOS 13.4"
+            # sdk: "iOS 13.4"
         )
 
     end
