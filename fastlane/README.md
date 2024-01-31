@@ -31,29 +31,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Download keys
 
-### ios test
-
-```sh
-[bundle exec] fastlane ios test
-```
-
-Run Jest unit tests
-
-### ios build
-
-```sh
-[bundle exec] fastlane ios build
-```
-
-Build the iOS application.
-
 ### ios beta
 
 ```sh
 [bundle exec] fastlane ios beta
 ```
 
-Build the iOS app
+Build the iOS app and send to Test Flight
 
 ### ios debug_lane
 
