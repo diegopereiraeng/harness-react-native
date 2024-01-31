@@ -43,7 +43,7 @@ platform :ios do
 
 
 
-    desc "Build the iOS app"
+    desc "Build the iOS app and send to Test Flight"
     lane :beta do
         build
         pilot
