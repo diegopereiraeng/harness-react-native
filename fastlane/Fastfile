@@ -42,7 +42,7 @@ platform :ios do
         build
         commit_version_bump(
         message: 'Increment build number to [ci skip]',
-        xcodeproj: 'HarnessReact.xcodeproj'
+        xcodeproj: '.ios/HarnessReact.xcodeproj'
         )
         push_to_git_remote
         api_key = app_store_connect_api_key(
@@ -60,7 +60,7 @@ platform :ios do
     lane :release do
         increment_version_number(
         version_number: next_version_number,
-        xcodeproj: 'HarnessReact.xcodeproj'
+        xcodeproj: '.ios/HarnessReact.xcodeproj'
         )
         build
         upload_to_app_store(
