@@ -1,4 +1,4 @@
-git_url("git@github.com:diegopereiraeng/fastlane_devops_mobile.git")
+git clone https://$GITHUB_PAT:x-oauth-basic@github.com/diegopereiraeng/fastlane_devops_mobile.git
 git_branch("main")
 storage_mode("git")
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
