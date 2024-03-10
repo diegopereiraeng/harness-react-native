@@ -78,3 +78,7 @@ package-lock.json
 
 clone.sh
 **/Podfile.lock
+
+test-results/jest-junit.xml
+
+AuthKey.p8
