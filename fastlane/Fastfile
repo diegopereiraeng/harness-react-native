@@ -27,11 +27,6 @@ platform :ios do
     private_lane :build do
         download_keys
         increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
-        commit_version_bump(
-            message: 'Increment build number to [ci skip]', # Custom commit message
-            xcodeproj: './ios/HarnessReact.xcodeproj', # Path to your Xcode project
-            # You can specify more options here if needed
-        )
         ENV['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
         gym(
             scheme: 'HarnessReact', 
@@ -52,8 +47,12 @@ platform :ios do
     lane :beta do
         build
         # pilot
-        # commit_version_bump(message: 'Bump build', xcodeproj: './ios/HarnessReact.xcodeproj')
-        # push_to_git_remote
+        commit_version_bump(
+            message: 'Increment build number to [ci skip]', # Custom commit message
+            xcodeproj: './ios/HarnessReact.xcodeproj', # Path to your Xcode project
+            # You can specify more options here if needed
+        )
+        push_to_git_remote
         # api_key = app_store_connect_api_key(
         #     key_filepath: ENV["KEY_PATH"],
         #     duration: 1200,
