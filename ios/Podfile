@@ -158,14 +158,21 @@ target 'HarnessReact' do
   # Auto-linking for React Native modules and dependencies
   config = use_native_modules!
 
+  # use_react_native!(
+  #   :path => config[:reactNativePath],
+  #   # Update Flipper to the available version
+  #   :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.233.0' }),
+  #   # An absolute path to your application root.
+  #   :app_path => "#{Pod::Config.instance.installation_root}/.."
+  # )
+
   use_react_native!(
     :path => config[:reactNativePath],
-    # Update Flipper to the available version
-    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.233.0' }),
+    # Disable Flipper
+    :flipper_configuration => FlipperConfiguration.disabled,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
   # Pods for HarnessReact
   # (List of your pods for the target goes here)
 
