@@ -33,8 +33,7 @@ const App: React.FC = () => {
         identifier: 'diego', // Unique identifier for the user or device
         name: 'Diego', // Optional: Name of the user or device
         // You can also pass additional attributes here
-      }}
-    >
+      }}>
       <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <Header />
@@ -43,8 +42,7 @@ const App: React.FC = () => {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}
-        >
+          style={backgroundStyle}>
           {/* Optionally use feature flags to conditionally render steps */}
           <Step
             title="Step One"
