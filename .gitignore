@@ -78,3 +78,9 @@ package-lock.json
 
 clone.sh
 **/Podfile.lock
+
+# CICD
+test-results/jest-junit.xml
+AuthKey.p8
+HarnessReact.app.dSYM.zip
+HarnessReact.ipa
