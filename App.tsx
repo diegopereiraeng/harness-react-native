@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions } from 'react-native';
-import Header from './components/Header'; // Import the custom Header component
-import { FFContextProvider } from '@harnessio/ff-react-client-sdk';
-import FeatureEnabledButton from './components/FeatureEnabledButton';
+import Header from './components/Header';
+import { FFContextProvider, useFeatureFlag } from '@harnessio/ff-react-native-client-sdk';
 
 const { width } = Dimensions.get('window');
 
@@ -17,26 +16,28 @@ const Step: React.FC<{ title: string; content: string }> = ({ title, content }) 
   );
 };
 
+const FeatureButton = () => {
+  // Replace 'harnessappdemodarkmode' with your actual feature flag key
+  const isFeatureEnabled = useFeatureFlag('harnessappdemodarkmode');
+
+  if (!isFeatureEnabled) return null;
+
+  return <Button title="Feature Enabled Button" onPress={() => alert("Feature Flag Button Clicked")} />;
+};
+
 const App: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#0E1D34' : '#FFFFFF', // Example of dark and light theme
+    backgroundColor: isDarkMode ? '#0E1D34' : '#FFFFFF',
   };
 
   return (
     <FFContextProvider
       apiKey="c19d34f7-f105-4c48-8676-b26ab4a6ecd8"
       target={{
-        identifier: 'diego', // unique identifier for the user
-        name: 'Diego',
-        attributes: {
-          email: 'diego@harness.io',
-          location: 'LATAM',
-        },
-      }}
-      options={{
-        streamEnabled: true,
+        identifier: 'reactnativeclientsdk', // Update this to your user's identifier
+        name: 'ReactNativeClientSDK', // And the user's name
       }}
     >
       <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
@@ -49,25 +50,12 @@ const App: React.FC = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}
         >
-          {/* Each Step component is a page in the horizontal scroll view */}
-          <Step
-            title="Step One"
-            content="Install Harness and configure your project for CI/CD pipelines."
-          />
-          <Step
-            title="Step Two"
-            content="Define your build and test workflows within the Harness platform."
-          />
-          <Step
-            title="Step Three"
-            content="Set up your deployment strategy and distribution methods for iOS."
-          />
-          <Step
-            title="Step Four"
-            content="Monitor your app's performance and user feedback after deployment."
-          />
+          <Step title="Step One" content="Install Harness and configure your project for CI/CD pipelines." />
+          <Step title="Step Two" content="Define your build and test workflows within the Harness platform." />
+          <Step title="Step Three" content="Set up your deployment strategy and distribution methods for iOS." />
+          <Step title="Step Four" content="Monitor your app's performance and user feedback after deployment." />
         </ScrollView>
-        <FeatureEnabledButton />
+        <FeatureButton />
       </SafeAreaView>
     </FFContextProvider>
   );
@@ -78,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   stepContainer: {
-    width: width, // Each step will be the full width of the screen
+    width: width,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -86,14 +74,13 @@ const styles = StyleSheet.create({
   stepTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#0292E3', // Harness brand color for titles
+    color: '#0292E3',
     marginBottom: 15,
   },
   stepContent: {
     fontSize: 18,
-    color: '#5C5C5C', // Subdued text color for content
+    color: '#5C5C5C',
   },
-  // ... Add more styles as needed
 });
 
 export default App;
