@@ -32,12 +32,10 @@ const App: React.FC = () => {
         name: 'Diego',
         attributes: {
           email: 'diego@harness.io',
-          location: 'EMEA',
+          location: 'LATAM',
         },
       }}
       options={{
-        baseUrl: 'https://config.ff.harness.io/api/1.0',
-        eventUrl: 'https://events.ff.harness.io/api/1.0',
         streamEnabled: true,
       }}
     >
@@ -69,8 +67,8 @@ const App: React.FC = () => {
             content="Monitor your app's performance and user feedback after deployment."
           />
         </ScrollView>
+        <FeatureEnabledButton />
       </SafeAreaView>
-      <FeatureEnabledButton />
     </FFContextProvider>
   );
 };
