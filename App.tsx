@@ -18,11 +18,20 @@ const Step: React.FC<{ title: string; content: string }> = ({ title, content }) 
 
 const FeatureButton = () => {
   // Replace 'harnessappdemodarkmode' with your actual feature flag key
-  const isFeatureEnabled = useFeatureFlag('harnessappdemodarkmode');
+  const isFeatureEnabled = useFeatureFlag('step_feature');
 
   if (!isFeatureEnabled) return null;
 
   return <Button title="Feature Enabled Button" onPress={() => alert("Feature Flag Button Clicked")} />;
+};
+
+const StepFeature = () => {
+  // Replace 'harnessappdemodarkmode' with your actual feature flag key
+  const isFeatureEnabled = useFeatureFlag('step_feature');
+
+  if (!isFeatureEnabled) return null;
+
+  return <Step title="Step Five" content="enable Feature Flags in Production" />;
 };
 
 const App: React.FC = () => {
@@ -54,6 +63,7 @@ const App: React.FC = () => {
           <Step title="Step Two" content="Define your build and test workflows within the Harness platform." />
           <Step title="Step Three" content="Set up your deployment strategy and distribution methods for iOS." />
           <Step title="Step Four" content="Monitor your app's performance and user feedback after deployment." />
+          <StepFeature />
         </ScrollView>
         <FeatureButton />
       </SafeAreaView>
