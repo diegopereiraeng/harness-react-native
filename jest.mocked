@@ -1,0 +1,15 @@
+import { useFeatureFlag } from '@harnessio/ff-react-native-client-sdk';
+
+jest.mock('@harnessio/ff-react-native-client-sdk', () => ({
+  ...jest.requireActual('@harnessio/ff-react-native-client-sdk'), // If you want to keep some original functionality
+  useFeatureFlag: jest.fn(),
+}));
+
+// Example of customizing in a specific test
+it('renders feature conditionally', () => {
+  // Mock specific flag behavior
+  jest.mocked(useFeatureFlag).mockImplementation((flagName) => flagName === 'someFeatureFlag');
+
+  const component = renderer.create(<App />);
+  // Assertions here
+});

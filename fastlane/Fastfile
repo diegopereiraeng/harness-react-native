@@ -11,16 +11,16 @@ platform :ios do
     end
 
     lane :create_keys do
-        match(type: "development", force_for_new_devices: true, git_basic_authorization: ENV["GIT_BASIC_AUTHORIZATION"])
+        match(type: "development", force_for_new_devices: true, git_basic_authorization: ENV["GITHUB_PAT"])
         match(type: "adhoc", force_for_new_devices: true)
         match(type: "appstore")
     end
 
     desc "Download keys"
     lane :download_keys do
-        match(type: "development", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
-        match(type: "adhoc", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
-        match(type: "appstore", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
+        match(type: "development", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact")
+        match(type: "adhoc", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact")
+        match(type: "appstore", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact")
     end
 
     desc 'Build the iOS application.'
@@ -28,17 +28,18 @@ platform :ios do
         download_keys
         increment_build_number(xcodeproj: './ios/HarnessReact.xcodeproj')
         gym(
-        scheme: 'HarnessReact',
-        workspace: ENV["WORKSPACE"],
-        clean: true,
-        export_method: 'app-store',
-        export_team_id: ENV["TEAM_ID"],
-        output_name: "HarnessReact.ipa"
+            scheme: 'HarnessReact',
+            workspace: ENV["WORKSPACE"],
+            clean: true,
+            export_method: 'app-store',
+            export_team_id: ENV["TEAM_ID"],
+            output_name: "HarnessReact.ipa"
         )
     end
 
     desc "Build the iOS app and send to Test Flight"
     lane :beta do
+        branch_name = ENV["BRANCH_NAME"]
         build
         commit_version_bump(
             message: 'Increment build number to [ci skip]',
@@ -48,7 +49,7 @@ platform :ios do
             api_key = app_store_connect_api_key(
             key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
             issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
-            key_filepath: ENV["KEY_PATH"],
+            key_filepath: ENV["KEY_PATH"]
         )
         api_key = app_store_connect_api_key(
             key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
@@ -62,7 +63,7 @@ platform :ios do
             beta_app_description: "Harness Mobile React Native IOS Demo",
             api_key: api_key,
             skip_waiting_for_build_processing: true,
-            # apple_id: ENV["APP_STORE_CONNECT_APPLE_ID"],
+            apple_id: ENV["APP_STORE_CONNECT_APPLE_ID"],
             uses_non_exempt_encryption: false
         )
     end
