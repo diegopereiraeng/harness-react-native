@@ -18,7 +18,7 @@ const Step: React.FC<{ title: string; content: string }> = ({ title, content }) 
 
 const FeatureButton = () => {
   // Replace 'harnessappdemodarkmode' with your actual feature flag key
-  const isFeatureEnabled = useFeatureFlag(flagIdentifier: 'button_feature');
+  const isFeatureEnabled = useFeatureFlag('button_feature');
 
   if (!isFeatureEnabled) return null;
 
