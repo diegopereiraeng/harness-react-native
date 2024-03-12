@@ -18,7 +18,7 @@ const Step: React.FC<{ title: string; content: string }> = ({ title, content }) 
 
 const FeatureButton = () => {
   // Replace 'harnessappdemodarkmode' with your actual feature flag key
-  const isFeatureEnabled = useFeatureFlag('button_feature');
+  const isFeatureEnabled = useFeatureFlag(flagIdentifier: 'button_feature');
 
   if (!isFeatureEnabled) return null;
 
@@ -42,20 +42,17 @@ const App: React.FC = () => {
   };
 
   return (
-    <FFContextProvider
-      apiKey="c19d34f7-f105-4c48-8676-b26ab4a6ecd8"
-      target={{
-        identifier: 'reactnativeclientsdk', // Update this to your user's identifier
-        name: 'ReactNativeClientSDK', // And the user's name
-      }}
-    >
-      <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
+    <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
+        <FFContextProvider
+          apiKey="1aaff08c-acde-44e0-aab6-abb8b40ae4f9"
+          target={{ name: 'ReactNativeClientSDK', identifier: 'reactnativeclientsdk' }}
+        >
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <Header />
         <ScrollView
           horizontal
           pagingEnabled
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}  
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}
         >
@@ -66,8 +63,8 @@ const App: React.FC = () => {
           <StepFeature />
         </ScrollView>
         <FeatureButton />
-      </SafeAreaView>
-    </FFContextProvider>
+      </FFContextProvider>
+    </SafeAreaView>
   );
 };
 
