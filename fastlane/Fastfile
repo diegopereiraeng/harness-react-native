@@ -11,16 +11,16 @@ platform :ios do
     end
 
     lane :create_keys do
-        match(type: "development", force_for_new_devices: true, git_basic_authorization: ENV["GIT_BASIC_AUTHORIZATION"])
+        match(type: "development", force_for_new_devices: true, git_basic_authorization: ENV["GITHUB_PAT"])
         match(type: "adhoc", force_for_new_devices: true)
         match(type: "appstore")
     end
 
     desc "Download keys"
     lane :download_keys do
-        match(type: "development", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
-        match(type: "adhoc", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
-        match(type: "appstore", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact",)
+        match(type: "development", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact", git_basic_authorization: ENV["GITHUB_PAT"])
+        match(type: "adhoc", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact", git_basic_authorization: ENV["GITHUB_PAT"])
+        match(type: "appstore", readonly: true, keychain_password: ENV["KEYCHAIN_PASSWORD"],app_identifier: "com.devopsmobile.HarnessReact", git_basic_authorization: ENV["GITHUB_PAT"])
     end
 
     desc 'Build the iOS application.'
