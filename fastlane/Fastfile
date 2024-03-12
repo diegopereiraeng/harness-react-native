@@ -39,6 +39,7 @@ platform :ios do
 
     desc "Build the iOS app and send to Test Flight"
     lane :beta do
+        branch_name = ENV["BRANCH_NAME"]
         build
         commit_version_bump(
             message: 'Increment build number to [ci skip]',
@@ -49,6 +50,8 @@ platform :ios do
             key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
             issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
             key_filepath: ENV["KEY_PATH"],
+            local_branch: branch_name, 
+            remote_branch: branch_name
         )
         api_key = app_store_connect_api_key(
             key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
